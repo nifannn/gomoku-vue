@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+	Gomoku
+	</title>
+    <!-- element css-->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+	<!-- custom css -->
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+<div id="app">
+	<header>
+		<el-menu theme="dark" mode="horizontal">
+  		<el-menu-item index="1">Gomoku-Vue</el-menu-item>
+  		</el-menu>
+	</header>
+	<section class="game">
+	<h1>Gomoku</h1><hr>
+		<el-row :gutter="20">
+  		<el-col :span="4"><div>
+  		<el-card class="box-card">
+  		<div slot="header" class="clearfix">
+    	<span style="line-height: 14px;"><img :src="imgSrc[player]" width="10" height="10"> Player {{player+1}}</span>
+  		</div>
+  		<div v-for="(score, player_id) in results" class="text item"><img :src="imgSrc[player_id]" width="10" height="10">
+    	Player {{parseInt(player_id)+1}} : {{score}}
+  		</div>
+		</el-card>
+  	</div></el-col>
+  	<el-col :span="12">
+  	<div class="chessboard">
+		<template v-for="row in boardWidth">
+				<i v-for="col in boardWidth" @click="tick(row-1,col-1)" :class="pieces[_cover(row-1)+_cover(col-1)]" class="piece"></i>
+			<br>
+		</template>
+	</div>
+  	</el-col>
+  	<el-col :span="2"><div>
+  	<el-button-group>
+  	<el-button type="primary" @click="newGame">New Game</el-button><br>
+	<el-button type="primary" :disabled="undoLeft == 0" @click="undo">Undo: &nbsp &nbsp &nbsp{{ undoLeft }}</el-button>
+	</el-button-group>
+	</div></el-col>
+	</el-row>
+	</section>
+	<footer></footer>
+</div>
+<!-- vuejs -->
+<script src="https://unpkg.com/vue"></script>
+<!-- element js -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!-- custom js -->
+<script src="main.js"></script>
+
+</body>
+</html>
