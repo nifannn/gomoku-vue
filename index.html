@@ -17,7 +17,10 @@
   		</el-menu>
 	</header>
 	<section class="game">
-	<h1>Gomoku</h1><hr>
+	<div class="title">
+	<h1>Gomoku</h1>
+	</div><hr>
+	<div class="game-content">
 		<el-row :gutter="20">
   		<el-col :span="4"><div>
   		<el-card class="box-card">
@@ -37,16 +40,22 @@
 		</template>
 	</div>
   	</el-col>
-  	<el-col :span="2"><div>
-  	<el-button-group>
-  	<el-button type="primary" @click="newGame">New Game</el-button><br>
-	<el-button type="primary" :disabled="undoLeft == 0" @click="undo">Undo: &nbsp &nbsp &nbsp{{ undoLeft }}</el-button>
-	</el-button-group>
-	</div></el-col>
+  	<el-col :span="2">
+  	<div>
+  	<el-button type="primary" @click="newGame" class="gomoku-btn">New Game</el-button><br>
+	<el-button type="primary" :disabled="undoLeft == 0" @click="undo" class="gomoku-btn">Undo: &nbsp &nbsp &nbsp{{ undoLeft }}</el-button>
+	</div>
+	</el-col>
 	</el-row>
+	</div>
 	</section>
 	<footer></footer>
 </div>
+<!-- jquery -->
+<script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 <!-- vuejs -->
 <script src="https://unpkg.com/vue"></script>
 <!-- element js -->

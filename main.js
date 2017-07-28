@@ -1,3 +1,6 @@
+$('#app').css("height", window.outerHeight + 'px')
+$('#app').css("width", window.outerWidth + 'px')
+
 var boardWidth = 15;
 var points = [];
 var pieces = {};
