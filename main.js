@@ -1,6 +1,3 @@
-$('#app').css("height", window.outerHeight + 'px')
-$('#app').css("width", window.outerWidth + 'px')
-
 var boardWidth = 15;
 var points = [];
 var pieces = {};
@@ -29,7 +26,33 @@ var gomoku = new Vue({
 		pieces: pieces,
 		points: points,
 		results: { 0: 0, 1: 0},
-		imgSrc: { 0: 'img/black.jpg', 1: 'img/white.jpg' }
+		imgSrc: { 0: 'img/black.jpg', 1: 'img/white.jpg' },
+	},
+	computed: {
+		viewHeight: function () {
+			return window.outerHeight
+		},
+		viewWidth: function () {
+			return window.outerWidth
+		},
+		boardSize: function () {
+			return Math.min(window.outerWidth, window.outerHeight) * 0.51
+		},
+		gridSize: function () {
+			return this.boardSize / 15
+		},
+		currentPlayer: function () {
+			return this.viewWidth >= 700? ' Player ' + (this.player+1) : '' 
+		},
+		buttonSize: function () {
+			if (this.viewWidth < 400) {
+				return 'mini'
+			}
+			if (this.viewWidth < 800) {
+				return 'small'
+			}
+			return ''
+		}
 	},
 	methods: {
 		tick: function (x, y) {
@@ -42,6 +65,9 @@ var gomoku = new Vue({
 					this.player = this.player ? 0 : 1	
 				}
 			}
+		},
+		getPlayer: function (player_id) {
+			return this.viewWidth >= 700? 'Player ' + (parseInt(player_id)+1) : ''
 		},
 		undo: function () {
 			if (this.last && !this.gameOver) {

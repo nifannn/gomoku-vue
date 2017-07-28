@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<div id="app">
+<div id="app" :style="{ height: viewHeight+'px', width: viewWidth+'px' }">
 	<header>
 		<el-menu theme="dark" mode="horizontal">
   		<el-menu-item index="1">Gomoku-Vue</el-menu-item>
@@ -18,32 +18,34 @@
 	</header>
 	<section class="game">
 	<div class="title">
-	<h1>Gomoku</h1>
+	<h1 v-if="viewHeight > 500">Gomoku</h1>
 	</div><hr>
-	<div class="game-content">
+	<div class="game-content" :style="{ padding: viewWidth < 400? '0': '0 0 0 4%' }">
 		<el-row :gutter="20">
-  		<el-col :span="4"><div>
+  		<el-col :xs="{ span: 2 }" :sm="{ span: 4 }" :md="{ span: 3, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+  		<div>
   		<el-card class="box-card">
   		<div slot="header" class="clearfix">
-    	<span style="line-height: 14px;"><img :src="imgSrc[player]" width="10" height="10"> Player {{player+1}}</span>
+    	<span style="line-height: 6px;"><img :src="imgSrc[player]" width="10" height="10">{{ currentPlayer }}</span>
   		</div>
   		<div v-for="(score, player_id) in results" class="text item"><img :src="imgSrc[player_id]" width="10" height="10">
-    	Player {{parseInt(player_id)+1}} : {{score}}
+    	{{ getPlayer(player_id) }} : {{score}}
   		</div>
 		</el-card>
-  	</div></el-col>
-  	<el-col :span="12">
-  	<div class="chessboard">
+  	</div>
+  	</el-col>
+  	<el-col :xs="{ span: 5 }" :sm="{ span: 13 }" :md="{ span: 12, offset: 1 }" :lg="{ span: 10, offset: 1 }">
+  	<div class="chessboard" :style="{ height: boardSize+'px', width: boardSize+'px', padding: boardSize/30+'px'}">
 		<template v-for="row in boardWidth">
-				<i v-for="col in boardWidth" @click="tick(row-1,col-1)" :class="pieces[_cover(row-1)+_cover(col-1)]" class="piece"></i>
+				<i v-for="col in boardWidth" @click="tick(row-1,col-1)" :class="pieces[_cover(row-1)+_cover(col-1)]" class="piece" :style="{ width: gridSize+'px', height: gridSize+'px' }"></i>
 			<br>
 		</template>
 	</div>
   	</el-col>
-  	<el-col :span="2">
+  	<el-col :xs="{ span: 3 }" :sm="{ span: 3 }" :md="{ span: 3 }" :lg="{ span: 3 }">
   	<div>
-  	<el-button type="primary" @click="newGame" class="gomoku-btn">New Game</el-button><br>
-	<el-button type="primary" :disabled="undoLeft == 0" @click="undo" class="gomoku-btn">Undo: &nbsp &nbsp &nbsp{{ undoLeft }}</el-button>
+  	<el-button type="primary" @click="newGame" class="gomoku-btn" :size="buttonSize">New Game</el-button><br>
+	<el-button type="primary" :disabled="undoLeft == 0" @click="undo" class="gomoku-btn" :size="buttonSize">Undo: &nbsp &nbsp &nbsp{{ undoLeft }}</el-button>
 	</div>
 	</el-col>
 	</el-row>
