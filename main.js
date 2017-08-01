@@ -22,7 +22,7 @@ var gomoku = new Vue({
 		last: '',
 		player: 0,
 		boardWidth: boardWidth,
-		undoLeft: 3,
+		undoLeft: { 0:3, 1: 3},
 		pieces: pieces,
 		points: points,
 		results: { 0: 0, 1: 0},
@@ -57,7 +57,6 @@ var gomoku = new Vue({
 	methods: {
 		tick: function (x, y) {
 			if (this.points[x][y] == -1 && !this.gameOver) {
-				this.started = true
 				this.points[x][y] = this.player
 				this.pieces[cover(x)+cover(y)] = this.player ? 'w' : 'b'
 				this.last = [x, y]
@@ -75,14 +74,14 @@ var gomoku = new Vue({
 				this.pieces[this._cover(this.last[0])+this._cover(this.last[1])] = ''
 				this.player = this.player ? 0 : 1
 				this.last = ''
-				this.undoLeft --;
+				this.undoLeft[this.player] --;
 			}
 		},
 		newGame: function () {
 			this.gameOver = false
 			this.last = ''
 			this.player = 0
-			this.undoLeft = 3
+			this.undoLeft = { 0:3, 1:3}
 			for (var i = 0; i < this.points.length; i++) {
 				for (var j = 0; j < this.points.length; j++) {
 					this.points[i][j] = -1

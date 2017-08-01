@@ -45,7 +45,7 @@
   	<el-col :xs="{ span: 3 }" :sm="{ span: 3 }" :md="{ span: 3 }" :lg="{ span: 3 }">
   	<div>
   	<el-button type="primary" @click="newGame" class="gomoku-btn" :size="buttonSize">New Game</el-button><br>
-	<el-button type="primary" :disabled="undoLeft == 0" @click="undo" class="gomoku-btn" :size="buttonSize">Undo: &nbsp &nbsp &nbsp{{ undoLeft }}</el-button>
+	<el-button type="primary" :disabled="undoLeft[player] == 0" @click="undo" class="gomoku-btn" :size="buttonSize">Undo: &nbsp &nbsp &nbsp{{ undoLeft[player] }}</el-button>
 	</div>
 	</el-col>
 	</el-row>
